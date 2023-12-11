@@ -40,6 +40,20 @@ void loadFile(FILE* arquivo,char* arq, Veiculo* veiculos){
     }
 }
 
+void leVeiculo(Veiculo *veiculo, FILE *arquivo)
+{
+    veiculo = (Veiculo*)malloc(sizeof(Veiculo));
+
+    fscanf(arquivo, "%f %i %s %s %s %s %ld %s %s %s %s %s",
+           &veiculo->preco, &veiculo->ano,
+           &veiculo->marca, &veiculo->modelo,
+           &veiculo->condicao, &veiculo->combustivel,
+           &veiculo->odometro, &veiculo->status,
+           &veiculo->cambio, &veiculo->tamanho,
+           &veiculo->tipo, &veiculo->cor);
+}
+
+
 void compraVeiculos(FILE* arquivo, Veiculo* veiculo){
 
 }
@@ -52,6 +66,10 @@ int main(int argc, char** argv){
 
 
     loadFile(arquivo, nomeArquivo, veiculos);
+
+    leVeiculo(veiculos, arquivo);
+    printf("Veiculo: %s",veiculos->modelo);
+    
 
     return SUCESSO;
 }

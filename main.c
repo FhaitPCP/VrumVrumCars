@@ -7,17 +7,17 @@
 
 struct Veiculo{
     float preco;
+    char modelo[50];
+    char marca[50];
+    char condicao[20];
+    char combustivel[20];
     int ano;
-    char* marca;
-    char* modelo;
-    char* condicao;
-    char* combustivel;
-    long int odometro;
-    char* status;
-    char* cambio;
-    char* tamanho;
-    char* tipo;
-    char* cor;
+    long odometro;
+    char status[20];
+    char cambio[20];
+    char tamanho[20];
+    char tipo[20];
+    char cor[20];
     };
 typedef struct Veiculo Veiculo;
 
@@ -30,13 +30,13 @@ struct Data{
     int minuto;
 };
 
-void loadFile(FILE* arquivo,char* arq, Veiculo* veiculos){
+void loadFile(FILE* arquivo,char* arq){
     arquivo = fopen(arq,"a");
 
-    if(arquivo == NULL){
-        printf("Erro, nao foi possivel abrir o arquivo\n");
-    }else{
+    if(arquivo != NULL){
         printf("Arquivo aberto");
+    }else{
+        printf("Erro, nao foi possivel abrir o arquivo\n");
     }
 }
 
@@ -44,7 +44,7 @@ void leVeiculo(Veiculo *veiculo, FILE *arquivo)
 {
     veiculo = (Veiculo*)malloc(sizeof(Veiculo));
 
-    fscanf(arquivo, "%f %i %s %s %s %s %ld %s %s %s %s %s",
+    fscanf(arquivo, "%f,%i,%s,%s,%s,%s,%ld,%s,%s,%s,%s,%s",
            &veiculo->preco, &veiculo->ano,
            &veiculo->marca, &veiculo->modelo,
            &veiculo->condicao, &veiculo->combustivel,
@@ -65,11 +65,9 @@ int main(int argc, char** argv){
     char nomeArquivo[] = "veiculos_ofertas.csv";
 
 
-    loadFile(arquivo, nomeArquivo, veiculos);
-
+    loadFile(arquivo, nomeArquivo);
     leVeiculo(veiculos, arquivo);
     printf("Veiculo: %s",veiculos->modelo);
     
-
     return SUCESSO;
 }
